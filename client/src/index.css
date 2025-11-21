@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "roboto";
+  src: url("/fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@theme {
+  --font-roboto: "roboto", sans-serif;
+}
+
+body{
+  background: #F9FAFB;
+}
+
+
