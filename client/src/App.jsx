@@ -1,5 +1,5 @@
 import Article from "./components/Article";
-import AiResponse from "./components/AiResponse";
+import AIResponse from "./components/AiResponse";
 import ClaimInput from "./components/ClaimInput";
 import Navigation from "./components/Navigation";
 import SearchQueries from "./components/SearchQueries";
@@ -55,7 +55,7 @@ function App() {
 
               {result && !loading && (
                 <>
-                  <AiResponse result={result} /> 
+                  <AIResponse result={result} /> 
                   <SearchQueries queries={result.queries} />
                   
                 </>
