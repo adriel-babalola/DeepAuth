@@ -1,10 +1,11 @@
 import Article from "./components/Article";
-import AIResponse from "./components/AiResponse";
+// import AIResponse from "./components/AIResponse";
 import ClaimInput from "./components/ClaimInput";
 import Navigation from "./components/Navigation";
 import SearchQueries from "./components/SearchQueries";
 import { useState } from 'react';
 import { verifyClaim } from './services/api';
+import AIResponse from "./components/AiResponse";
 
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
               {result && !loading && (
                 <>
                   <AIResponse result={result} /> 
+                
                   <SearchQueries queries={result.queries} />
                   
                 </>

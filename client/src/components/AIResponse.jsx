@@ -1,6 +1,6 @@
 import { X, Check, AlertTriangle} from 'lucide-react';
 
-const AIResponse = ({ result }) => {
+const AiResponse = ({ result }) => {
    if (!result) return null;
 
   const confidence = result.confidence || 0;
@@ -80,4 +80,4 @@ const AIResponse = ({ result }) => {
   );
 }
 
-export default AIResponse
+export default AiResponse
