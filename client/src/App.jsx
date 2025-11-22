@@ -4,7 +4,7 @@ import Navigation from "./components/Navigation";
 import SearchQueries from "./components/SearchQueries";
 import AiResponse from "./components/AiResponse";
 import { useState } from 'react';
-import { verifyClaim } from './services/api';
+import { verifyClaim } from './services/api'; 
 
 
 function App() {

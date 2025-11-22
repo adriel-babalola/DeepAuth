@@ -27,16 +27,25 @@ export const fetchNews = async (queries) => {
 
         if (response.data.results) {
           // Transform Brave results to match our format
-          const articles = response.data.results.map(article => ({
-            title: article.title,
-            description: article.description || article.extra_snippets?.[0] || 'No description available',
-            url: article.url,
-            source: {
-              name: article.meta_url?.hostname || new URL(article.url).hostname
-            },
-            publishedAt: article.age || new Date().toISOString(),
-            urlToImage: article.thumbnail?.src || null
-          }));
+          const articles = response.data.results.map(article => {
+            // Calculate publishedAt from article.age or use current time
+            let publishedAt = new Date().toISOString();
+            if (article.page_age) {
+              // If page_age exists, use it to calculate the date
+              publishedAt = article.page_age;
+            }
+            
+            return {
+              title: article.title,
+              description: article.description || article.extra_snippets?.[0] || 'No description available',
+              url: article.url,
+              source: {
+                name: article.meta_url?.hostname || new URL(article.url).hostname
+              },
+              publishedAt: publishedAt,
+              urlToImage: article.thumbnail?.src || null
+            };
+          });
           
           allArticles.push(...articles);
         }
