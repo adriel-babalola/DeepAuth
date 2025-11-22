@@ -62,14 +62,14 @@ const AiResponse = ({ result }) => {
 
         <div className="summary my-3">
           <h1 className="text-xl font-semibold">Summary</h1>
-          <p className="text-md text-gray-700 leading-relaxed">
+          <p className="text-sm text-gray-700 leading-relaxed">
             {result.summary}
           </p>
         </div>
 
         <div className="Analysis">
           <h1 className="text-xl font-semibold">Analysis</h1>
-          <p className="text-md text-gray-700 leading-relaxed">
+          <p className="text-sm text-gray-700 leading-relaxed">
             {result.reasoning}
           </p>
         </div>
