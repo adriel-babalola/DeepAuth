@@ -54,7 +54,7 @@ DeepAuth/
 │   │   ├── components/
 │   │   │   ├── Navigation.jsx       # Header with social links
 │   │   │   ├── ClaimInput.jsx       # Claim input form
-│   │   │   ├── AIResponse.jsx       # Verdict with progress circle
+│   │   │   ├── AiResponse.jsx       # Verdict with progress circle
 │   │   │   ├── SearchQueries.jsx    # Generated search queries display
 │   │   │   └── Article.jsx          # Article card component
 │   │   ├── App.css
