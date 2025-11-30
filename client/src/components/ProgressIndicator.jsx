@@ -37,7 +37,7 @@ const ProgressIndicator = ({ duration }) => {
         {/* Progress Bar - Dark theme matching navbar */}
         <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden shadow-sm">
           <div
-            className="bg-gradient-to-r from-[#0D1828] to-[#1a2d3f] h-full rounded-full transition-all duration-300 ease-out"
+            className="bg-linear-to-r from-[#0D1828] to-[#1a2d3f] h-full rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
