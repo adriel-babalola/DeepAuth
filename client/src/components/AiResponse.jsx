@@ -88,6 +88,9 @@ const AiResponse = ({ result }) => {
           </div>
         </div>
 
+
+
+
         <div className="Analysis">
           <h1 className="text-xl font-semibold">Analysis</h1>
           <div className="text-sm text-gray-700 leading-relaxed">
@@ -102,3 +105,6 @@ const AiResponse = ({ result }) => {
 }
 
 export default AiResponse
+
+
+
