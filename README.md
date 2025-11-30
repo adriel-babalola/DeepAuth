@@ -1,167 +1,158 @@
-<div align="center">
-  <a href="https://moonshot.hackclub.com" target="_blank">
-    <img src="https://hc-cdn.hel1.your-objectstorage.com/s/v3/35ad2be8c916670f3e1ac63c1df04d76a4b337d1_moonshot.png" 
-         alt="This project is part of Moonshot, a 4-day hackathon in Florida visiting Kennedy Space Center and Universal Studios!" 
-         style="width: 100%;">
-  </a>
-</div>
+# 📰 DeepAuth v2.1.0 - AI-Powered Fact-Checking Platform
 
-# 📰 DeepAuth - AI-Powered Fact-Checking Platform
+DeepAuth is an intelligent, real-time fact-checking application that verifies claims using **Google Gemini 2.0 Flash Experimental** with integrated **Google Search grounding**. It combines cutting-edge AI analysis with real-time web search for comprehensive, up-to-date claim verification with confidence scoring.
 
-DeepAuth is an intelligent, real-time fact-checking application that verifies claims by analyzing current news sources with advanced AI. It combines Google Gemini AI analysis with Brave Search API for comprehensive, up-to-date claim verification with confidence scoring.
-
-**Status**: ✅ Production Ready  
-**License**: ISC  
-**Author**: Adriel Babalola
+**Status**: ✅ Production Ready | **Version**: 2.1.0 | **License**: ISC | **Author**: Adriel Babalola
 
 ---
 
-## 🌟 Features
+## 🌟 Key Features
 
-- **🤖 AI-Powered Analysis**: Google Gemini 2.0 Flash for intelligent claim verification
-- **📰 Real-Time News**: Brave Search API for current, relevant articles
-- **🎯 Smart Query Generation**: Automatic search query generation from claims
+- **🤖 Gemini 2.0 Flash AI**: Next-generation AI model for intelligent claim verification
+- **🔍 Google Search Grounding**: Real-time web search integrated directly into AI analysis
 - **📊 Confidence Scoring**: Verdict (SUPPORTED/CONTRADICTED/PARTIALLY_SUPPORTED) with percentage confidence
 - **⚡ Rate Limiting**: Built-in DDoS protection with Upstash Redis (10 req/min on verify endpoint)
-- **🎨 Beautiful UI**: Modern responsive design with Tailwind CSS and Lucide React icons
+- **🎨 Beautiful UI**: Modern responsive design with Tailwind CSS v4.1, Lucide React icons, Source Sans 3 font
 - **📱 Mobile Optimized**: Fully responsive for all device sizes
-- **🔍 Article Display**: Rich article cards with source attribution, timestamps, and images
-- **🏥 Error Handling**: Comprehensive error messages and fallback UI
-- **📈 Analytics**: Rate limit analytics via Upstash dashboard
+- **🏥 Comprehensive Error Handling**: Detailed error messages with fallback UI
+- **⏱️ Real-time Progress**: Visual progress indicator during verification
+- **📈 Analytics Ready**: Rate limit analytics via Upstash dashboard
 
 ---
 
 ## 📋 Project Structure
 
 ```
-DeepAuth/
-├── backend/
+DeepAuth/ (Monorepo)
+├── backendv2/                       # Primary backend (v2.1.0)
 │   ├── src/
-│   │   ├── server.js                 # Express server entry point
-│   │   ├── config/
-│   │   │   └── upstash.js           # Redis rate limiting config
-│   │   ├── middleware/
-│   │   │   └── rateLimiter.js       # Endpoint-specific rate limiters
+│   │   ├── server.js               # Express.js entry point
 │   │   ├── routes/
-│   │   │   └── verify.js            # Main verification endpoint
+│   │   │   └── verify.js           # POST /api/verify endpoint
 │   │   ├── services/
-│   │   │   ├── geminiService.js     # AI query generation & analysis
-│   │   │   └── newsService.js       # News article fetching
+│   │   │   ├── geminiService.js    # Gemini 2.0 Flash + Google Search
+│   │   │   └── newsService.js      # News processing
+│   │   ├── middleware/
+│   │   │   └── rateLimiter.js      # Rate limiting middleware
 │   │   └── utils/
-│   │       └── errorHandler.js      # Error utilities
+│   │       └── errorHandler.js     # Error utilities
+│   ├── .env                        # Environment variables
 │   ├── package.json
-│   ├── nodemon.json
-│   └── .env
+│   └── nodemon.json
 │
-├── client/
+├── client/                          # React + Vite frontend
 │   ├── src/
-│   │   ├── App.jsx                  # Main app component
-│   │   ├── main.jsx                 # Vite entry point
+│   │   ├── App.jsx                 # Main app container
+│   │   ├── main.jsx                # Vite entry point
 │   │   ├── services/
-│   │   │   └── api.js               # Backend API client
+│   │   │   └── api.js              # Backend API client
 │   │   ├── components/
-│   │   │   ├── Navigation.jsx       # Header with social links
-│   │   │   ├── ClaimInput.jsx       # Claim input form
-│   │   │   ├── AiResponse.jsx       # Verdict with progress circle
-│   │   │   ├── SearchQueries.jsx    # Generated search queries display
-│   │   │   └── Article.jsx          # Article card component
+│   │   │   ├── Navigation.jsx      # Header component
+│   │   │   ├── ClaimInput.jsx      # Claim input form
+│   │   │   ├── ProgressIndicator.jsx # Progress bar
+│   │   │   ├── AiResponse.jsx      # Verdict + confidence circle
+│   │   │   ├── SearchQueries.jsx   # Generated queries display
+│   │   │   └── Article.jsx         # Article card component
 │   │   ├── App.css
-│   │   └── index.css
+│   │   ├── index.css               # Global styles + Source Sans 3 font
+│   │   └── assets/
 │   ├── public/
 │   ├── package.json
 │   ├── vite.config.js
 │   └── eslint.config.js
 │
-├── package.json                     # Root monorepo config
-├── README.md                        # This file
-└── DEPLOYMENT.md                    # Deployment guide
+├── backend/                         # Legacy backend (v1)
+│   ├── src/
+│   │   ├── server.js
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── middleware/
+│   │   └── utils/
+│   └── package.json
+│
+├── package.json                    # Root monorepo config
+├── README.md                       # This file
+└── .env                            # Root environment (optional)
 ```
 
 ---
 
 ## 🔧 Tech Stack
 
-### Backend
+### Backend (backendv2)
 - **Runtime**: Node.js with ES Modules
-- **Framework**: Express.js 5.1
-- **APIs**: 
-  - OpenRouter (Google Gemini 2.0 Flash) - AI analysis
-  - Brave Search API - News articles
-  - Upstash Redis - Rate limiting & caching
-- **Development**: Nodemon
-- **HTTP Client**: Axios
-- **Rate Limiting**: @upstash/ratelimit + @upstash/redis
+- **Framework**: Express.js 4.21.2
+- **AI Model**: Google Gemini 2.0 Flash Experimental (@google/generative-ai v0.21.0)
+- **Web Search**: Google Search Tool (integrated into Gemini)
+- **Rate Limiting**: Upstash Redis (@upstash/ratelimit v2.0.7)
+- **HTTP Client**: Axios 1.13.2
+- **Development**: Nodemon 3.0.2
+- **Utilities**: CORS, Chalk, Cheerio, Dotenv
 
-### Frontend
-- **Framework**: React 19.2 with Vite
-- **Styling**: Tailwind CSS 4.1
-- **Icons**: Lucide React
-- **HTTP Client**: Axios
-- **Build Tool**: Vite 7.2
-- **Linting**: ESLint
+### Frontend (React + Vite)
+- **Framework**: React 19.2.0 with Vite 7.2.2
+- **Styling**: Tailwind CSS 4.1.17
+- **Font**: Source Sans 3 (from Google Fonts)
+- **Icons**: Lucide React 0.553.0
+- **Build Tool**: Vite
+- **Linting**: ESLint 9.39.1
+- **HTTP Client**: Axios 1.13.2
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 16+ and npm
-- API Keys:
-  - [OpenRouter API Key](https://openrouter.ai) (free tier available)
-  - [Brave Search API Key](https://api.search.brave.com)
-  - [Upstash Redis](https://upstash.com) (free tier includes rate limiting)
+- Node.js 16+ with npm/yarn
+- **Google Gemini API Key** (free): https://aistudio.google.com/apikey
+- **Upstash Redis URL & Token** (free tier): https://upstash.com
 
 ### Installation
 
 1. **Clone repository**
    ```bash
-   git clone https://github.com/yourusername/deepauth.git
+   git clone https://github.com/adriel-babalola/DeepAuth.git
    cd DeepAuth
    ```
 
-2. **Install dependencies**
+2. **Install root dependencies**
    ```bash
-   # Backend
-   cd backend
    npm install
-   
-   # Frontend
-   cd ../client
-   npm install
-   cd ..
    ```
 
-3. **Setup environment variables**
+3. **Setup backend environment**
    
-   Create `backend/.env`:
+   Create `backendv2/.env`:
    ```env
    PORT=5000
    NODE_ENV=development
-   OPENROUTER_API_KEY=sk-or-v1-your_key_here
-   BRAVE_SEARCH_API_KEY=your_brave_key_here
+   GOOGLE_API_KEY=your_google_gemini_api_key_here
    UPSTASH_REDIS_REST_URL=https://your-redis.upstash.io
    UPSTASH_REDIS_REST_TOKEN=your_token_here
    ```
 
+4. **Install dependencies**
+   ```bash
+   # Install all workspaces
+   npm install
+   ```
+
 ### Running Locally
 
-**Option 1: Run separately (2 terminals)**
+**Development (Both Services)**
 ```bash
-# Terminal 1 - Backend
-cd backend
-npm run dev
-
-# Terminal 2 - Frontend
-cd client
+# From root directory
 npm run dev
 ```
 
-Backend: `http://localhost:5000`  
-Frontend: `http://localhost:5173`
+This runs:
+- **Backend**: http://localhost:5000
+- **Frontend**: http://localhost:5173
 
-**Option 2: Run both together (if root package.json exists)**
+**Production Build**
 ```bash
-npm run dev
+npm run build
+npm start
 ```
 
 ---
@@ -170,7 +161,7 @@ npm run dev
 
 ### POST `/api/verify`
 
-Verifies a claim and returns analysis with supporting articles.
+Verifies a claim using Gemini 2.0 Flash with Google Search grounding.
 
 **Request:**
 ```json
@@ -179,49 +170,53 @@ Verifies a claim and returns analysis with supporting articles.
 }
 ```
 
-**Response:**
+**Response (200 OK):**
 ```json
 {
   "verdict": "SUPPORTED",
-  "confidence": 85,
-  "summary": "Multiple recent news sources confirm significant growth in EV sales",
-  "reasoning": "Based on the articles reviewed, EV sales have indeed shown substantial growth in 2024, with major manufacturers reporting record sales numbers.",
+  "confidence": 87,
+  "summary": "Recent news sources confirm significant EV sales growth",
+  "reasoning": "Multiple credible sources report EV market expansion in 2024...",
   "articles": [
     {
-      "title": "Global EV Sales Hit Record High",
-      "description": "Electric vehicle sales surge...",
-      "url": "https://...",
+      "title": "Global EV Sales Surge to Record High in 2024",
+      "description": "Electric vehicle adoption accelerates worldwide...",
+      "url": "https://news.example.com/ev-sales-2024",
       "source": "Reuters",
-      "publishedAt": "2024-11-15T10:30:00Z",
-      "urlToImage": "https://..."
+      "publishedAt": "2024-11-28T14:30:00Z"
     }
   ],
-  "queries": ["query1", "query2", "query3"]
+  "queries": ["EV sales 2024", "electric vehicle market growth", "EV adoption statistics"],
+  "processingTime": 3250
 }
 ```
 
-**Status Codes:**
-- `200`: Successful verification
-- `400`: Invalid claim (< 10 characters)
-- `429`: Rate limit exceeded (10 requests/minute)
-- `500`: Server error
-
-**Rate Limiting Headers:**
+**Rate Limit Headers:**
 ```
 X-RateLimit-Limit: 10
 X-RateLimit-Remaining: 9
-X-RateLimit-Reset: 1700000000000
+X-RateLimit-Reset: 1732823400000
 ```
+
+**Error Responses:**
+- `400`: Invalid claim (< 10 characters)
+- `429`: Rate limit exceeded (10 requests/minute per IP)
+- `500`: Server error with diagnostic info
 
 ### GET `/health`
 
-Health check endpoint (100 requests/minute limit).
+Health check endpoint.
 
 **Response:**
 ```json
 {
   "status": "OK",
-  "message": "Server is running"
+  "message": "Server is running",
+  "services": {
+    "server": "operational",
+    "gemini": "operational"
+  },
+  "timestamp": "2024-11-28T14:35:00Z"
 }
 ```
 
@@ -229,226 +224,246 @@ Health check endpoint (100 requests/minute limit).
 
 ## 🧠 How It Works
 
-### Verification Flow
+### Verification Pipeline
 
 ```
 User Input (Claim)
       ↓
-Generate Search Queries (Gemini AI)
+[Rate Limit Check]
       ↓
-Fetch News Articles (Brave Search)
+Gemini 2.0 Flash + Google Search
+  ├─ Real-time web search
+  ├─ Parse search results
+  ├─ Analyze claim against findings
+  └─ Generate verdict + confidence
       ↓
-Analyze Results (Gemini AI)
+Format Response
       ↓
-Return Verdict + Confidence + Articles
+Return Verdict + Articles + Metadata
 ```
 
-**Step-by-step:**
+### Step-by-Step Flow
 
-1. **User enters claim** - Minimum 10 characters required
-2. **Query generation** - Gemini generates 2-3 targeted search queries
-3. **News fetching** - Brave Search retrieves up to 30 articles from multiple sources
-4. **Deduplication** - Removes duplicate articles by URL
-5. **AI analysis** - Gemini analyzes articles against the claim
-6. **Verdict generation** - Determines if claim is SUPPORTED/CONTRADICTED/PARTIALLY_SUPPORTED
-7. **Response** - Returns verdict with confidence score and supporting articles
+1. **Claim Validation** - Minimum 10 characters required
+2. **Rate Limit Check** - Verify IP hasn't exceeded 10 req/min limit
+3. **Google Search Integration** - Gemini performs real-time web search
+4. **News Analysis** - AI analyzes search results against the claim
+5. **Verdict Generation** - Determines verdict type and confidence score
+6. **Response Formatting** - Structure results with articles and metadata
+7. **Return to Client** - Send verdict, confidence, articles, and search queries
+
+**Response Time**: Typically 2-5 seconds (includes AI analysis + web search)
 
 ---
 
-## 🔐 Rate Limiting
+## 🔐 Rate Limiting Strategy
 
-Three-tier rate limiting architecture:
+**Three-Tier Architecture:**
 
-| Endpoint | Limit | Purpose |
-|----------|-------|---------|
-| `/api/verify` | 10/min | Strict - resource intensive |
-| `/api/*` (other) | 30/min | Moderate - general API |
-| Global | 100/min | Permissive - health checks |
+| Endpoint | Limit | Window | Purpose |
+|----------|-------|--------|---------|
+| `/api/verify` | 10 | Per minute | Strict - AI intensive |
+| Other `/api/*` | 30 | Per minute | Moderate - API calls |
+| Global (`/health`) | 100 | Per minute | Permissive - monitoring |
 
-**Rate limit exceeded response (429):**
+**Rate Limit Exceeded (429):**
 ```json
 {
   "error": "Too many requests",
-  "message": "You have exceeded the rate limit. Please try again after [time]",
+  "message": "Rate limit exceeded. Try again in 45 seconds.",
   "retryAfter": 45
 }
 ```
 
-Powered by [Upstash Redis](https://upstash.com) with sliding window algorithm.
+**Powered by**: Upstash Redis with sliding window algorithm
 
 ---
 
 ## 🧪 Testing
 
-### Test with cURL
+### Using cURL
 ```bash
 curl -X POST http://localhost:5000/api/verify \
   -H "Content-Type: application/json" \
   -d '{"claim":"The stock market rose 15% in 2024"}'
 ```
 
-### Test with Node Script
-```javascript
-import axios from 'axios';
-
-const testClaim = async () => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/verify', {
-      claim: 'Test claim about current events'
-    });
-    console.log(response.data);
-  } catch (error) {
-    console.error('Error:', error.response?.data);
-  }
-};
-
-testClaim();
+### Health Check
+```bash
+curl http://localhost:5000/health
 ```
 
-### Example Claims to Test
+### Example Test Claims
 - "Electric vehicle sales increased by 40% in 2024"
-- "Unemployment rate dropped to historic lows"
 - "AI technology created 2 million new jobs this year"
+- "The unemployment rate hit a 50-year low in 2024"
+- "Global temperatures reached record highs in 2024"
 
 ---
 
-## 🎨 UI Components
+## 🎨 Frontend Components
 
 ### Navigation
-- Header with DeepAuth branding
-- Social links (GitHub, LinkedIn, Twitter)
-- Responsive design
+- DeepAuth branding/header
+- Social media links
+- Responsive hamburger menu (mobile)
 
 ### ClaimInput
-- Textarea for claim entry
-- Character counter (minimum 10)
-- Example claim buttons
-- Loading state with spinner
+- Textarea with character counter
+- 10-character minimum requirement
+- Example claim buttons (3 on desktop, 1 on mobile)
+- Submit button with loading spinner
 
-### AIResponse
-- Verdict display with icon (Check/X/AlertTriangle)
-- Circular confidence indicator (SVG progress circle)
-- Summary and detailed reasoning
-- Color-coded by verdict type
+### ProgressIndicator
+- Animated progress bar (0-100%)
+- Processing stages: Initializing → Searching → Processing → Extracting → Finalizing
+- Time estimation display
+- Smooth animations during verification
+
+### AiResponse
+- Verdict display with color-coded icon (✓/✗/⚠)
+- Circular confidence indicator (SVG)
+- Summary section
+- Detailed reasoning
+- Responsive flex layout (horizontal on desktop, vertical on mobile)
 
 ### SearchQueries
-- Display of AI-generated search queries
-- Searchable query pills
+- Display AI-generated search queries
+- Query chips/pills
+- Scrollable container
 
 ### Article
-- Thumbnail image
-- Title with index
-- Description (2-line clamp)
-- Source badge and publication date
-- External link button with icon
+- Title (line-clamped)
+- Description preview
+- Source badge + publication date
+- External link icon
+- Click-to-open functionality
 
 ### Layout
-- Left: Input + AI Response + Search Queries
-- Right: Article list (scrollable)
-- Responsive: Stacks on mobile
+- **Desktop**: 2-column (left: input/response, right: articles)
+- **Tablet**: Adjusted grid spacing
+- **Mobile**: Single column, stacked layout
 
 ---
 
-## 🛠️ Configuration
+## 🛠️ Environment Configuration
 
-### Environment Variables
+### Backend (.env)
 
-**Backend (.env)**
 ```env
-# Server
+# Server Configuration
 PORT=5000
-NODE_ENV=development|production
+NODE_ENV=development
 
-# APIs
-OPENROUTER_API_KEY=sk-or-v1-...
-BRAVE_SEARCH_API_KEY=...
+# Google Gemini API
+GOOGLE_API_KEY=AIzaSy...your_key_here
 
-# Redis Rate Limiting
-UPSTASH_REDIS_REST_URL=https://...upstash.io
-UPSTASH_REDIS_REST_TOKEN=...
+# Upstash Redis Rate Limiting
+UPSTASH_REDIS_REST_URL=https://your-instance.upstash.io
+UPSTASH_REDIS_REST_TOKEN=your_token_here
+
+# Optional: Frontend URL (for CORS)
+FRONTEND_URL=http://localhost:5173
 ```
 
-### Database/Cache
-- **Primary**: Upstash Redis (rate limiting, optional caching)
-- **Optional**: Add PostgreSQL for storing verification history
+### Frontend (.env)
+
+```env
+# Backend API URL
+VITE_API_URL=http://localhost:5000
+```
 
 ---
 
-## 📦 Dependencies
+## 📦 Key Dependencies
 
 ### Backend
-```json
-{
-  "@upstash/ratelimit": "^2.0.7",
-  "@upstash/redis": "^1.35.6",
-  "axios": "^1.13.2",
-  "cors": "^2.8.5",
-  "dotenv": "^17.2.3",
-  "express": "^5.1.0",
-  "nodemon": "^3.1.11"
-}
-```
+- `@google/generative-ai` - Gemini API SDK
+- `@upstash/ratelimit` - Rate limiting
+- `express` - HTTP framework
+- `axios` - HTTP client
+- `cors` - Cross-origin resource sharing
+- `dotenv` - Environment variables
+- `chalk` - Terminal colors
+- `cheerio` - HTML parsing
+- `nodemon` - Dev auto-reload
 
 ### Frontend
-```json
-{
-  "axios": "^1.13.2",
-  "lucide-react": "^0.553.0",
-  "react": "^19.2.0",
-  "react-dom": "^19.2.0",
-  "tailwindcss": "^4.1.17"
-}
-```
+- `react` - UI framework
+- `react-dom` - React DOM rendering
+- `vite` - Build tool
+- `tailwindcss` - Utility CSS
+- `lucide-react` - Icon library
+- `axios` - HTTP client
+- `eslint` - Code linting
 
 ---
 
 ## 🚢 Deployment
 
-See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment guide.
+### Render (Recommended)
 
-**Quick deploy to Render:**
 1. Push code to GitHub
-2. Connect repo to Render
-3. Set environment variables
-4. Deploy!
+2. Connect repository to Render
+3. Create Web Service:
+   - **Build Command**: `npm run build`
+   - **Start Command**: `npm start`
+4. Add environment variables from `.env`
+5. Deploy!
 
-Live URL will look like: `https://deepauth.onrender.com`
+**Live URL**: `https://deepauth-<project>.onrender.com`
+
+### Vercel (Frontend Only)
+
+1. Deploy `client/` folder to Vercel
+2. Update `VITE_API_URL` to production backend
+
+### Other Platforms
+
+See `DEPLOYMENT.md` for detailed guides (coming soon).
 
 ---
 
-## 📊 Performance
+## 📊 Performance Metrics
 
-- **Verification time**: 2-5 seconds (includes AI analysis)
-- **Article fetching**: <1 second
-- **Query generation**: 1-2 seconds
-- **AI analysis**: 1-3 seconds
-- **Rate limits**: 10 req/min on verify endpoint prevents abuse
+- **Verification Time**: 2-5 seconds
+  - Search execution: <1s
+  - AI analysis: 1-3s
+  - Response formatting: <500ms
+- **Throughput**: 10 requests/minute per IP (rate limited)
+- **Uptime SLA**: 99.9% (Upstash + Render)
 
 ---
 
 ## 🔍 Troubleshooting
 
-### "No auth credentials found"
-**Solution**: Check API keys in `.env` file
+### "GOOGLE_API_KEY is not set"
+**Solution**: Ensure `backendv2/.env` contains valid API key
 ```bash
-# Verify backend loads env vars
-grep OPENROUTER_API_KEY backend/.env
+# Get key from: https://aistudio.google.com/apikey
+grep GOOGLE_API_KEY backendv2/.env
 ```
 
 ### "Network error. Make sure backend is running"
-**Solution**: Ensure backend is running on port 5000
+**Solution**: Verify backend port 5000
 ```bash
 curl http://localhost:5000/health
 ```
 
 ### Rate limit errors (429)
-**Solution**: Wait 60 seconds before next request, or check Upstash dashboard
+**Solution**: Wait 60 seconds, or check Upstash dashboard for quota
 
-### Articles not loading
-**Solution**: Verify Brave Search API key and remaining quota
+### "Gemini: Connection issue detected"
+**Solution**: 
+- Verify API key validity
+- Check internet connectivity
+- Confirm Upstash Redis credentials
 
-### AI analysis fails
-**Solution**: Check OpenRouter credits and API key validity
+### Frontend shows "Failed to verify claim"
+**Solution**:
+- Check browser console for error details
+- Verify backend is running
+- Ensure CORS is properly configured
 
 ---
 
@@ -462,39 +477,38 @@ curl http://localhost:5000/health
 
 ---
 
-## 📚 Learning Resources
+## 📚 Resources & Documentation
 
-- [Express.js Documentation](https://expressjs.com)
-- [React Documentation](https://react.dev)
-- [Vite Documentation](https://vitejs.dev)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Upstash Redis](https://upstash.com)
-- [Brave Search API](https://api.search.brave.com/res/v1/documentation)
-- [OpenRouter](https://openrouter.ai)
+- **Google Gemini API**: https://ai.google.dev/
+- **Express.js**: https://expressjs.com
+- **React**: https://react.dev
+- **Vite**: https://vitejs.dev
+- **Tailwind CSS**: https://tailwindcss.com
+- **Upstash**: https://upstash.com
+- **Lucide Icons**: https://lucide.dev
 
 ---
 
-## 🔮 Future Enhancements
+## 🔮 Roadmap v2.2+
 
-- [ ] User authentication and profiles
-- [ ] Verification history tracking
-- [ ] Claim caching for faster re-verification
-- [ ] Multiple language support
-- [ ] Advanced filtering and sorting
-- [ ] Direct PDF/document upload verification
-- [ ] API key management dashboard
+- [ ] User authentication & saved verifications
+- [ ] Verification history with caching
+- [ ] Multi-language support
+- [ ] Advanced result filtering & sorting
+- [ ] PDF/document upload verification
+- [ ] API dashboard for key management
 - [ ] WebSocket for real-time updates
-- [ ] Machine learning confidence calibration
+- [ ] Confidence calibration improvements
 - [ ] Integration with fact-checking databases
-- [ ] Email verification result sharing
+- [ ] Email result sharing
 
 ---
 
-## 📞 Support & Links
+## 📞 Connect
 
-- **GitHub**: [adriel-babalola](https://github.com/adriel-babalola)
+- **GitHub**: [@adriel-babalola](https://github.com/adriel-babalola)
 - **LinkedIn**: [adriel-babalola](https://linkedin.com/in/adriel-babalola)
-- **Twitter**: [@AdrielBaba57136](https://x.com/AdrielBaba57136)
+- **Twitter/X**: [@AdrielBaba57136](https://x.com/AdrielBaba57136)
 
 ---
 
@@ -506,14 +520,16 @@ ISC License - See LICENSE file for details
 
 ## 🙏 Acknowledgments
 
-- Built with [OpenRouter](https://openrouter.ai) for AI capabilities
-- News from [Brave Search API](https://api.search.brave.com)
-- Rate limiting by [Upstash](https://upstash.com)
-- UI by [Tailwind CSS](https://tailwindcss.com) + [Lucide Icons](https://lucide.dev)
+- **AI**: [Google Gemini 2.0 Flash Experimental](https://ai.google.dev/)
+- **Web Search**: [Google Search Tool](https://ai.google.dev/)
+- **Rate Limiting**: [Upstash Redis](https://upstash.com)
+- **UI/UX**: [Tailwind CSS](https://tailwindcss.com) + [Lucide React](https://lucide.dev)
+- **Font**: [Source Sans 3](https://fonts.google.com/specimen/Source+Sans+3)
 
 ---
 
 **Last Updated**: November 2025  
-**Current Version**: 1.0.0  
-**Status**: ✅ Production Ready
+**Current Version**: 2.1.0  
+**Status**: ✅ Production Ready  
+**Built with ❤️ by Adriel Babalola**
 

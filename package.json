@@ -1,6 +1,6 @@
 {
   "name": "deepauth",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "DeepAuth is an intelligent, real-time fact-checking application that verifies claims by analyzing current news sources with advanced AI. It combines Google Gemini AI analysis with Brave Search API for comprehensive, up-to-date claim verification with confidence scoring.",
   "main": "index.js",
   "scripts": {

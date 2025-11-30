@@ -1,6 +1,6 @@
 {
   "name": "deepauth-backend",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "AI-powered news fact checker",
   "type": "module",
   "main": "server.js",
