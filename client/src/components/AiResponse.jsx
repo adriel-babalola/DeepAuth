@@ -44,7 +44,7 @@ const AiResponse = ({ result }) => {
     <div className="relative h-full overflow-y-auto">
       <div className="actual-response mt-5 mx-5 overflow-y-auto">
         <div className="card bg-gray-100 overflow-y-auto rounded-tr-xl rounded-bl-xl w-40 h-40 float-right ml-4 top-0 right-0 mb-4 flex flex-col items-center justify-center p-4">
-          <div className="relative w-24 h-24">
+          <div className="relative w-24 h-24 md:flex hidden ">
             <svg className="transform md:flex hidden -rotate-90 w-24 h-24">
               <circle
                 cx="48"
