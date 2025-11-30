@@ -14,7 +14,7 @@ const ClaimInput = ({ onVerify, loading }) => {
   const exampleClaims = [
     "Electric vehicle sales increased by 40% in 2024",
     "Unemployment rate dropped to historic lows",
-    "AI Tech created 2 million new jobs this year"
+    "Nigeria's economy is growing in 2025"
   ];
 
   const handleExampleClick = (example) => {
@@ -26,7 +26,7 @@ const ClaimInput = ({ onVerify, loading }) => {
   return (
     <div className="input shadow pt-2 rounded-2xl bg-white">
       <form onSubmit={handleSubmit}>
-        <div className="examples px-2 mb-2 flex flex-wrap justify-between">
+        <div className="examples px-2 mb-2 flex-wrap justify-between">
           <div className="text-xs p-2 text-gray-600">Examples:</div>
           <div className="span text-xs flex flex-wrap gap-3">
             {exampleClaims.map((example, index) => (
@@ -37,7 +37,7 @@ const ClaimInput = ({ onVerify, loading }) => {
                   loading 
                     ? 'opacity-50 cursor-not-allowed' 
                     : 'hover:bg-gray-200 cursor-pointer'
-                }`}
+                } ${index === 0 ? 'block' : 'hidden md:block'}`}
               >
                 {example}
               </span>
@@ -74,14 +74,14 @@ const ClaimInput = ({ onVerify, loading }) => {
             )}
           </button>
         </div>
-        
+{/*         
         {claim.length > 0 && (
           <div className="px-3 py-1 text-xs text-right">
             <span className={claim.length >= 10 ? 'text-green-600' : 'text-gray-400'}>
               {claim.length >= 10 ? '✓ Ready' : `${10 - claim.length} more characters needed`}
             </span>
           </div>
-        )}
+        )} */}
       </form>
     </div>
   );

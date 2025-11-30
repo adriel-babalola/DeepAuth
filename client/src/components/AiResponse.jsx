@@ -74,6 +74,7 @@ const AiResponse = ({ result }) => {
             </div>
           </div>
           
+          
           <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide mt-2">Confidence</span>
         </div>
 

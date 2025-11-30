@@ -35,9 +35,9 @@ function App() {
     <div className=" bg-gray-50">
       <Navigation />
       <main className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 lg:min-h-[83vh] md:min-h-[82vh] min-h-[76vh] mx-5">
-        <div className="left col-span-2 flex flex-col lg:min-h-[83vh] md:min-h-[82vh] min-h-[76vh] justify-between">
-          <div className="card mb-5 shadow bg-white h-full rounded-xl">
-            <div className="main-response flex flex-col h-[vh] justify-between">
+        <div className="left col-span-2 flex flex-col lg:min-h-[83vh] md:min-h-[82vh] min-h-[70vh] justify-between">
+          <div className="card mb-5 shadow bg-white h-[56vh] sm:h-[64vh] rounded-xl">
+            <div className="main-response flex flex-col h-full justify-between overflow-y-auto">
               {loading && (
                 <ProgressIndicator duration={duration} />
               )}

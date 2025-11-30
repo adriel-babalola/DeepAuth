@@ -12,6 +12,7 @@ if (!API_KEY) {
   process.exit(1);
 }
 
+// console.log('🔑 API Key loaded:', API_KEY.substring(0, 20) + '...');
 const genAI = new GoogleGenerativeAI(`${API_KEY}`);
 
 /**

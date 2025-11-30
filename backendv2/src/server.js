@@ -7,9 +7,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import chalk from 'chalk';
 
-import verifyRouter from './src/routes/verify.js';
-import { generalRateLimiter } from './src/middleware/rateLimiter.js';
-import { checkGeminiHealth } from './src/services/geminiService.js';
+import verifyRouter from './routes/verify.js';
+import { generalRateLimiter } from './middleware/rateLimiter.js';
+import { checkGeminiHealth } from './services/geminiService.js';
 
 
 const app = express();
@@ -66,15 +66,14 @@ app.get('/health', async (req, res) => {
   }
 });
 
-// Serve static frontend files in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../client/dist')));
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-  // Fallback to index.html for React Router (must be after API routes)
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
-  });
-}
+// Fallback to index.html for React Router (must be after API routes)
+app.get(/^(?!\/api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+});
+
 
 // 404 handler for API routes
 app.use('/api/*', (req, res) => {
