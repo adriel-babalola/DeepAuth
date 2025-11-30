@@ -3,6 +3,7 @@ import ClaimInput from "./components/ClaimInput";
 import Navigation from "./components/Navigation";
 import SearchQueries from "./components/SearchQueries";
 import AiResponse from "./components/AiResponse";
+import ProgressIndicator from "./components/ProgressIndicator";
 import { useState } from 'react';
 import { verifyClaim } from './services/api'; 
 
@@ -11,15 +12,18 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [duration, setDuration] = useState(null);
 
   const handleVerify = async (claim) => {
     setLoading(true);
     setError(null);
     setResult(null);
+    setDuration(null);
 
     try {
       const data = await verifyClaim(claim);
       setResult(data);
+      setDuration(data.processingTime);
     } catch (err) {
       setError(err.error || err.message || 'Failed to verify claim');
     } finally {
@@ -33,12 +37,9 @@ function App() {
       <main className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 lg:min-h-[83vh] md:min-h-[82vh] min-h-[76vh] mx-5">
         <div className="left col-span-2 flex flex-col lg:min-h-[83vh] md:min-h-[82vh] min-h-[76vh] justify-between">
           <div className="card mb-5 shadow bg-white h-full rounded-xl">
-            <div className="main-response flex flex-col h-full justify-between">
+            <div className="main-response flex flex-col h-[vh] justify-between">
               {loading && (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0D1828]"></div>
-                  <p className="mt-4 text-gray-600">Verifying claim with AI...</p>
-                </div>
+                <ProgressIndicator duration={duration} />
               )}
 
               {error && (

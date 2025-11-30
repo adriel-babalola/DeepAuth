@@ -35,6 +35,7 @@ router.post('/verify', verifyRateLimiter, async (req, res) => {
         queries
       });
     }
+    
 
     // Step 3: Analyze with Gemini
     console.log('Analyzing results...');
