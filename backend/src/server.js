@@ -17,17 +17,14 @@ const __dirname = path.dirname(__filename);
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(generalRateLimiter); // Apply general rate limiter to all routes
-
+app.use(generalRateLimiter); 
 // Routes
 app.use('/api', verifyRouter);
 
-// Health check (unrestricted by endpoint-specific limiter)
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
-// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ 
@@ -36,10 +33,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Serve static frontend files
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-// Fallback to index.html for React Router (must be after API routes)
 app.get(/^(?!\/api).*/, (req, res) => {
   res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
 });

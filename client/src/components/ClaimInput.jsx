@@ -74,14 +74,6 @@ const ClaimInput = ({ onVerify, loading }) => {
             )}
           </button>
         </div>
-{/*         
-        {claim.length > 0 && (
-          <div className="px-3 py-1 text-xs text-right">
-            <span className={claim.length >= 10 ? 'text-green-600' : 'text-gray-400'}>
-              {claim.length >= 10 ? '✓ Ready' : `${10 - claim.length} more characters needed`}
-            </span>
-          </div>
-        )} */}
       </form>
     </div>
   );

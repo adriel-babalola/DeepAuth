@@ -4,17 +4,12 @@ import { verifyRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
-/**
- * POST /api/verify
- * Verify a claim using AI and real news sources
- */
 router.post('/verify', verifyRateLimiter, async (req, res) => {
   const startTime = Date.now();
 
   try {
     const { claim } = req.body;
 
-    // Validation
     if (!claim) {
       return res.status(400).json({ 
         error: 'Missing claim',
@@ -51,14 +46,12 @@ router.post('/verify', verifyRateLimiter, async (req, res) => {
     console.log('🌐 IP:', req.ip);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
-    // Call Gemini service
     const result = await verifyClaimWithRealNews(trimmedClaim);
 
     const duration = Date.now() - startTime;
     console.log(`⏱️  Request completed in ${duration}ms`);
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
 
-    // Format response to match frontend expectations
     const response = {
       verdict: result.verdict,
       confidence: result.confidence,
@@ -74,9 +67,9 @@ router.post('/verify', verifyRateLimiter, async (req, res) => {
         publishedAt: source.date || new Date().toISOString(),
         urlToImage: null
       })),
-      queries: [trimmedClaim], // Single query used
+      queries: [trimmedClaim],
       processingTime: duration,
-      logs: result.logs || [] // Include logs from service
+      logs: result.logs || [] 
     };
 
     res.json(response);

@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 
 const ProgressIndicator = ({ duration }) => {
   const [progress, setProgress] = useState(0);
-//   const estimatedTime = 11000; // 11 seconds average
 
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress(prev => {
-        // Smoother progression that reaches ~95% by 11s
         const elapsed = prev;
         const increase = (95 - elapsed) / (11000 / 300);
         return Math.min(prev + increase, 95);
@@ -17,14 +15,12 @@ const ProgressIndicator = ({ duration }) => {
     return () => clearInterval(interval);
   }, []);
 
-  // When response completes, jump to 100%
  
   const estimatedSeconds = Math.max(1, Math.ceil((11 - (progress / 100) * 11)));
 
   return (
     <div className="flex flex-col items-center justify-center h-full gap-6 p-8">
       <div className="w-full max-w-md">
-        {/* Status Text */}
         <div className="text-center mb-6">
           <h3 className="text-lg font-semibold text-[#0D1828] mb-2">Verifying Claim</h3>
           <p className="text-sm text-gray-500">
@@ -34,7 +30,6 @@ const ProgressIndicator = ({ duration }) => {
           </p>
         </div>
 
-        {/* Progress Bar - Dark theme matching navbar */}
         <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden shadow-sm">
           <div
             className="bg-linear-to-r from-[#0D1828] to-[#1a2d3f] h-full rounded-full transition-all duration-300 ease-out"

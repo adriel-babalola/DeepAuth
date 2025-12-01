@@ -1,6 +1,5 @@
 import { verifyLimiter, apiLimiter, generalLimiter } from "../config/upstash.js";
 
-// Rate limiter for verification endpoint (strict)
 export const verifyRateLimiter = async (req, res, next) => {
     try {
         const identifier = req.ip || req.headers['x-forwarded-for'] || 'unknown';
@@ -21,11 +20,10 @@ export const verifyRateLimiter = async (req, res, next) => {
         next();
     } catch (error) {
         console.error('Verify Rate Limit Error:', error.message);
-        next(); // Allow request to proceed if rate limiter fails
+        next(); 
     }
 };
 
-// Rate limiter for general API endpoints (moderate)
 export const apiRateLimiter = async (req, res, next) => {
     try {
         const identifier = req.ip || req.headers['x-forwarded-for'] || 'unknown';
@@ -49,7 +47,6 @@ export const apiRateLimiter = async (req, res, next) => {
     }
 };
 
-// Rate limiter for public endpoints (permissive)
 export const generalRateLimiter = async (req, res, next) => {
     try {
         const identifier = req.ip || req.headers['x-forwarded-for'] || 'unknown';

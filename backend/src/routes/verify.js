@@ -5,7 +5,6 @@ import { verifyRateLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
-// Apply strict rate limiting to verify endpoint
 router.post('/verify', verifyRateLimiter, async (req, res) => {
   try {
     const { claim } = req.body;
@@ -16,12 +15,10 @@ router.post('/verify', verifyRateLimiter, async (req, res) => {
       });
     }
 
-    // Step 1: Generate search queries using Gemini
     console.log('Generating search queries...');
     const queries = await generateSearchQueries(claim);
     console.log('Queries:', queries);
 
-    // Step 2: Fetch news articles
     console.log('Fetching news articles...');
     const articles = await fetchNews(queries);
     console.log(`Found ${articles.length} articles`);
@@ -37,7 +34,6 @@ router.post('/verify', verifyRateLimiter, async (req, res) => {
     }
     
 
-    // Step 3: Analyze with Gemini
     console.log('Analyzing results...');
     const analysis = await analyzeResults(claim, articles);
 

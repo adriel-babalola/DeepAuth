@@ -7,7 +7,6 @@ dotenv.config();
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-// Fastest free model on OpenRouter
 const MODEL = 'google/gemini-2.0-flash-exp:free';
 
 export const verifyClaimWithSearch = async (claim) => {
@@ -56,16 +55,13 @@ Provide your analysis in this EXACT JSON format (no markdown, no backticks):
 
     const text = response.data.choices[0].message.content;
     
-    // Remove markdown code blocks if present
     const cleanText = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
     
-    // Extract JSON
     const jsonMatch = cleanText.match(/\{[\s\S]*\}/);
     
     if (jsonMatch) {
       const result = JSON.parse(jsonMatch[0]);
       
-      // Ensure sources exist
       if (!result.sources || result.sources.length === 0) {
         result.sources = [{
           title: "AI Analysis",
@@ -77,7 +73,6 @@ Provide your analysis in this EXACT JSON format (no markdown, no backticks):
       return result;
     }
 
-    // Fallback if JSON parsing fails
     return {
       verdict: 'UNCLEAR',
       confidence: 0,

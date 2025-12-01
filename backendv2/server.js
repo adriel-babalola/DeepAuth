@@ -17,7 +17,6 @@ const PORT = process.env.PORT || 5000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
     ? process.env.FRONTEND_URL 
@@ -28,10 +27,8 @@ app.use(cors({
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
-// Trust proxy (important for rate limiting with real IPs)
 app.set('trust proxy', 1);
 
-// Apply general rate limiter to all routes
 app.use(generalRateLimiter);
 
 // Logging middleware
@@ -66,17 +63,14 @@ app.get('/health', async (req, res) => {
   }
 });
 
-// Serve static frontend files in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../../client/dist')));
 
-  // Fallback to index.html for React Router (must be after API routes)
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
   });
 }
 
-// 404 handler for API routes
 app.use('/api/*', (req, res) => {
   res.status(404).json({
     error: 'Not Found',
@@ -84,7 +78,6 @@ app.use('/api/*', (req, res) => {
   });
 });
 
-// Global error handling middleware
 app.use((err, req, res, next) => {
   console.error('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   console.error('🚨 UNHANDLED ERROR');
@@ -97,7 +90,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
 app.listen(PORT, async () => {
   console.log('\n' + chalk.cyan('━'.repeat(45)));
   console.log(chalk.green.bold('🚀 NEWS VERIFIER SERVER STARTED'));
@@ -121,7 +113,6 @@ app.listen(PORT, async () => {
   console.log(chalk.cyan('━'.repeat(45)) + '\n');
 });
 
-// Graceful shutdown
 process.on('SIGTERM', () => {
   console.log('SIGTERM received, shutting down gracefully...');
   process.exit(0);

@@ -7,12 +7,10 @@ const Article = ({ article }) => {
     }
   };
 
-  // Safely extract source name
   const sourceName = typeof article.source === 'string' 
     ? article.source 
     : article.source?.name || 'Unknown Source';
 
-  // Format date if available
   const formatDate = (dateString) => {
     if (!dateString) return null;
     try {
@@ -38,7 +36,6 @@ const Article = ({ article }) => {
       }`}
       onClick={handleClick}
     >
-      {/* Article Content */}
       <div>
         <h3 className="font-semibold text-sm mb-2 line-clamp-2 text-gray-900 hover:text-blue-600 transition-colors">
           {article.title}

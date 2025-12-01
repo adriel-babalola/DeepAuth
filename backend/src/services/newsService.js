@@ -7,7 +7,6 @@ const BRAVE_SEARCH_API_URL = 'https://api.search.brave.com/res/v1/news/search';
 const BRAVE_API_KEY = process.env.BRAVE_SEARCH_API_KEY;
 export const fetchNews = async (queries) => {
   try {
-    // Fetch all queries in parallel instead of sequential
     const articlePromises = queries.map(async (query) => {
       try {
         const response = await axios.get(BRAVE_SEARCH_API_URL, {
@@ -45,7 +44,6 @@ export const fetchNews = async (queries) => {
 
     const allArticles = (await Promise.all(articlePromises)).flat();
 
-    // Remove duplicates and filter
     const uniqueArticles = Array.from(
       new Map(allArticles.map(article => [article.url, article])).values()
     );
