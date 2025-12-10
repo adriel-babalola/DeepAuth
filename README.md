@@ -4,6 +4,7 @@ DeepAuth is an **AI-powered tool** that checks if a claim (a piece of informatio
 
 It uses Google's latest **Gemini 2.0 Flash AI** and connects it directly to **Google Search** to get the most accurate, up-to-date answers.
 
+
 -----
 
 ### ⭐ What it Does
