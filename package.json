@@ -8,7 +8,7 @@
     "start": "npm run start --prefix backendv2"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "repository": {
     "type": "git",
