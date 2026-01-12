@@ -32,12 +32,14 @@ function App() {
   };
 
   return (
-    <div className=" bg-gray-50">
+    <div className="bg-gray-50 flex flex-col h-screen">
       <Navigation />
-      <main className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 lg:min-h-[83vh] md:min-h-[82vh] min-h-[76vh] mx-5">
-        <div className="left col-span-2 flex flex-col lg:min-h-[83vh] md:min-h-[82vh] min-h-[70vh] justify-between">
-          <div className="card mb-5 shadow bg-white h-[56vh] sm:h-[64vh] rounded-xl">
-            <div className="main-response flex flex-col h-full justify-between overflow-y-auto">
+      <main className="flex-1 flex flex-col lg:flex-row gap-3 overflow-hidden px-3 pb-3">
+        {/* Left Section - Response Area */}
+        <div className="left flex flex-col flex-1 lg:col-span-2 min-w-0">
+          {/* Response Display Card */}
+          <div className="card flex-1 shadow bg-white rounded-xl overflow-hidden mb-5 flex flex-col min-h-0">
+            <div className="main-response flex flex-col h-full overflow-y-auto">
               {loading && (
                 <ProgressIndicator duration={duration} />
               )}
@@ -71,16 +73,17 @@ function App() {
             </div>
           </div>
 
+          {/* Input Card */}
           <ClaimInput onVerify={handleVerify} loading={loading} />
-          
         </div>
 
-        <div className="right bg-white flex flex-col shadow rounded-xl p-4 lg:h-[83vh] md:h-[83vh] lg:col-span-1 col-span-2  h-auto">
-          <div className="heading text-center text-lg pb-3 font-semibold">
+        {/* Right Section - Articles Sidebar */}
+        <div className="right bg-white flex flex-col shadow rounded-xl p-4 w-full lg:w-80 lg:min-h-0 min-w-0">
+          <div className="heading text-center text-lg pb-3 font-semibold shrink-0">
             Related Articles {result?.articles ? `(${result.articles.length})` : ''}
           </div>
 
-          <div className="card-list flex flex-col gap-3 overflow-y-auto pr-2">
+          <div className="card-list flex flex-col gap-3 overflow-y-auto pr-2 lg:flex-1 lg:min-h-0">
             {result?.articles && result.articles.length > 0 ? (
               result.articles.map((article, index) => (
                 <Article key={index} article={article} index={index} />

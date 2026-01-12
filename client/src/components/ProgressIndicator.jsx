@@ -19,11 +19,11 @@ const ProgressIndicator = ({ duration }) => {
   const estimatedSeconds = Math.max(1, Math.ceil((11 - (progress / 100) * 11)));
 
   return (
-    <div className="flex flex-col items-center justify-center h-full gap-6 p-8">
+    <div className="flex flex-col items-center justify-center h-full gap-4 sm:gap-6 p-4 sm:p-8">
       <div className="w-full max-w-md">
-        <div className="text-center mb-6">
-          <h3 className="text-lg font-semibold text-[#0D1828] mb-2">Verifying Claim</h3>
-          <p className="text-sm text-gray-500">
+        <div className="text-center mb-4 sm:mb-6">
+          <h3 className="text-base sm:text-lg font-semibold text-[#0D1828] mb-2">Verifying Claim</h3>
+          <p className="text-xs sm:text-sm text-gray-500">
             {progress < 100 
               ? `Estimated time: ~${estimatedSeconds}s` 
               : `Completed in ${(duration / 1000).toFixed(2)}s`}
@@ -38,14 +38,14 @@ const ProgressIndicator = ({ duration }) => {
         </div>
 
         {/* Progress Percentage */}
-        <div className="text-center mt-3">
-          <span className="text-sm font-semibold text-[#0D1828]">{Math.round(progress)}%</span>
+        <div className="text-center mt-2 sm:mt-3">
+          <span className="text-xs sm:text-sm font-semibold text-[#0D1828]">{Math.round(progress)}%</span>
         </div>
 
         {/* Status Messages */}
-        <div className="mt-6 space-y-2">
-          <div className="flex items-center gap-3">
-            <span className="text-sm">
+        <div className="mt-4 sm:mt-6 space-y-1.5 sm:space-y-2">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-sm shrink-0">
               {progress >= 18 ? (
                 <span className="text-[#0D1828] font-semibold">✓</span>
               ) : (
@@ -56,8 +56,8 @@ const ProgressIndicator = ({ duration }) => {
               Initializing Gemini
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-sm">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-sm shrink-0">
               {progress >= 38 ? (
                 <span className="text-[#0D1828] font-semibold">✓</span>
               ) : (
@@ -68,8 +68,8 @@ const ProgressIndicator = ({ duration }) => {
               Searching web and analyzing
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-sm">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-sm shrink-0">
               {progress >= 58 ? (
                 <span className="text-[#0D1828] font-semibold">✓</span>
               ) : (
@@ -80,8 +80,8 @@ const ProgressIndicator = ({ duration }) => {
               Processing AI response
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-sm">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-sm shrink-0">
               {progress >= 78 ? (
                 <span className="text-[#0D1828] font-semibold">✓</span>
               ) : (
@@ -92,8 +92,8 @@ const ProgressIndicator = ({ duration }) => {
               Extracting sources
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-sm">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <span className="text-sm shrink-0">
               {progress >= 100 ? (
                 <span className="text-[#0D1828] font-semibold">✓</span>
               ) : (
